@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page Title</title>
+
+    <!-- Bootstrap -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	
+	<link href="css/ystyle.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+<div class="container ycontainer">
+   <button id="addtxt">add text</button>
+   <button id="addcode">add code</button>
+    <button id="addtitle">add title</button>
+   
+   <button id="resdo">result</button>
+   
+   <div id="tut_content"></div><!--end tut_content-->
+   
+   <div id="yresult">
+	<h2>result</h2>
+	<textarea class='result_end ytxtxarea_res'></textarea>
+   </div><!--end tut_content-->
+   
+</div><!--end container-->
+			
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script>
+			var $ = jQuery.noConflict();
+			$( document ).ready(function() {
+				
+				click_add();
+				click_result();
+			});
+			
+			function click_add()
+			{
+				$(document).on("click","#addtxt",function(){add_txtarea("ytxt","#tut_content")});
+				$(document).on("click","#addcode",function(){add_txtarea("ycode","#tut_content")});
+				$(document).on("click","#addtitle",function(){add_txtarea("ytitle","#tut_content")});
+			}//end click add
+			
+			function click_result()
+			{
+			
+				$(document).on("click","#resdo",function(){
+					window.res_html="";
+					$('.ytxtxarea').each(function(i, obj) {
+						ythis = $(this);
+						if(ythis.hasClass("ytxt"))
+						{
+							//pargraph
+							window.res_html += "<p>"+ythis.val()+"</p>\n\n";
+						}
+						if(ythis.hasClass("ycode"))
+						{
+							//code 
+							window.res_html += "<pre><code class='php'>"+ythis.val()+"</code></pre>\n\n";
+						}
+						
+						if(ythis.hasClass("ytitle"))
+						{
+							//title
+							window.res_html += "<h2>"+ythis.val()+"</h2>\n\n";
+						}
+						
+					});
+					//scroll to
+					
+					 $('html, body').animate({
+						scrollTop: $(".result_end").offset().top
+					}, 500);
+					
+					//put html
+					$(".result_end").val(window.res_html);
+				});//end click
+			
+			}//end click result
+			
+			
+			
+			function add_txtarea(type,targ)
+			{
+				if(type =="ytitle")
+				{
+					html = "<h3  class='text-center'>"+type+"</h3>";
+					html +="<input type='text' class='"+type+" ytxtxarea ytxtxarea_input'/>";
+					$(targ).append(html);
+					return;
+				}
+				html = "<h3  class='text-center'>"+type+"</h3>";
+				html +="<textarea class='"+type+" ytxtxarea'></textarea>";
+				$(targ).append(html);
+			}//end add_txtarea
+			</script>
+</body>
+</html>
